@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.header-autenticated{
+    background-color: #003ba7;
+}
+.Sidebar{
+    height: 100%;
+    width: 250px;
+    background: #003ba7;
+}
+
+.SidebarList{
+    height: 100vh;
+    width: 100%;
+}
+
+.SidebarList .row{
+    width: 100%;
+    height: 60px;
+    list-style-type: none;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+}
+
+.row #iconList{
+    flex: 30%;
+    margin: 20px;
+    place-items: center;
+}
+
+.row #titleList{
+    flex: 70%;
+}
+
+
+
+.edit:hover{
+    color: #003ba7;
+} 
+.delete:hover{
+    color: #003ba7;
+}

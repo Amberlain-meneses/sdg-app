@@ -1,0 +1,58 @@
+<?php
+
+use App\Http\Controllers\MikrotikController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RouterOSController;
+use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use PHPUnit\Metadata\PostCondition;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+
+//Route prueba
+
+/*Route::get('/posts', function(){
+    return Inertia::render('Post/PostComponent');
+});*/
+
+Route::get('/posts', [PostController::class, 'index'])->name('post.index');
+Route::get('/posts/new',[PostController::class, 'new'])->name('post.new');
+Route::get('/getInfo', [RouterOSController::class, 'getInfo'])->name('mikrotik.getInfo');
+
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/customer', function() {
+    return Inertia::render('Customer');
+})->name('customer');
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__.'/auth.php';
